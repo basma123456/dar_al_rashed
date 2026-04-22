@@ -137,4 +137,22 @@ class ModuleService
             return $this->getModuleWithPosts($title, $perPage);
         });
     }
+
+
+    public function searchDateAndTitle($request , $q)
+    {
+        if (!empty($request->search)) {
+            $q->where(function ($query) use ($request) {
+                $query->where('name_ar', 'like', "%" . $request->search . "%")->orWhere('name_en', 'like', '%' . $request->search . "%");
+            });
+        }
+        if (!empty($request->date) && is_numeric($request->date)) {
+            $q->whereHas('postLangs', function ($query) use ($request) {
+                $query->whereDate('txt1', '<=', date_create('12/31/' . $request->date)->format('Y-m-d'))
+                    ->whereDate('txt1', '>=', date_create('1/1/' . $request->date)->format('Y-m-d'));
+            });
+        }
+
+        return $q;
+    }
 }

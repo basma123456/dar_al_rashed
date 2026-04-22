@@ -19,19 +19,7 @@ class NewsController extends Controller
     public function news(Request $request)
     {
         $q = $this->moduleService->getModuleWithPosts('News')['posts'];
-        #################search part####################
-        if (!empty($request->search)) {
-            $q->where(function ($query) use ($request) {
-                $query->where('name_ar', 'like', "%" . $request->search . "%")->orWhere('name_en', 'like', '%' . $request->search . "%");
-            });
-        }
-        if (!empty($request->date) && is_numeric($request->date)) {
-            $q->whereHas('postLangs', function ($query) use ($request) {
-                $query->whereDate('txt1', '<=', date_create('12/31/' . $request->date)->format('Y-m-d'))
-                    ->whereDate('txt1', '>=', date_create('1/1/' . $request->date)->format('Y-m-d'));
-            });
-        }
-        #################end search part####################
+        $q = $this->moduleService->searchDateAndTitle($request, $q);
         $news = $q->active()->paginate(config('app.pagination_num'))->withQueryString();
         return view('site/news/index', compact('news'));
     }

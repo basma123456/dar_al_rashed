@@ -13,7 +13,7 @@
                         <ul class="rashed-breadcrumb list-unstyled aos-init" data-aos="fade-right"
                             data-aos-anchor-placement="top-bottom" data-aos-duration="1300" data-aos-delay="100">
                             <li>
-                                <a href="index.html" title="">الرئيسيه</a>
+                                <a href="{{url('/')}}" title="">الرئيسيه</a>
                             </li>
                         </ul>
                     </div>
@@ -34,22 +34,25 @@
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="form-one__control">
-                                <input type="text" name="subject" placeholder="أسم الإصدار">
+                                <input type="text" name="search" value="{{old('search')}}" placeholder="أسم الإصدار">
                                 <i class="fa fa-edit " aria-hidden="true"></i>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="form-one__control ">
-                                <select class="selectpicker" aria-label="" data-container="body"
+                                <select class="selectpicker" aria-label="" name="category" data-container="body"
                                         data-dropup-auto="false">
                                     <option selected>أختر التصنيف</option>
-                                    <option value="1">اسم التصنيف</option>
-                                    <option value="2">اسم التصنيف</option>
-                                    <option value="3">اسم التصنيف</option>
-                                    <option value="3">اسم التصنيف</option>
-                                    <option value="3">اسم التصنيف</option>
-                                    <option value="3">اسم التصنيف</option>
-                                    <option value="3">اسم التصنيف</option>
+                                    @forelse($cats as $item)
+                                    <option value="{{$item->id}}">{{$item->$name}}</option>
+                                        @empty
+                                    @endforelse
+{{--                                    <option value="2">اسم التصنيف</option>--}}
+{{--                                    <option value="3">اسم التصنيف</option>--}}
+{{--                                    <option value="3">اسم التصنيف</option>--}}
+{{--                                    <option value="3">اسم التصنيف</option>--}}
+{{--                                    <option value="3">اسم التصنيف</option>--}}
+{{--                                    <option value="3">اسم التصنيف</option>--}}
                                 </select>
                                 <i class="icon-folder" aria-hidden="true"></i>
                             </div>
@@ -82,7 +85,7 @@
                                 <img src="{{asset($val->image())}}"
                                      alt="The Blog Meant Attract Build Brand Authority.">
                                 <a href="" class="blog-card-three__image__link">
-                                    <span class="sr-only">{{$val->postLangsCurrent->name}}</span>
+                                    <span class="sr-only">{{optional($val->postLangsCurrent)->name}}</span>
                                 </a>
                             </div>
                             <div class="blog-card-three__content">
@@ -92,7 +95,7 @@
                            <span class="blog-card-three__meta__icon">
                              <i class="icon-calendar"></i>
                            </span>
-                                            <span class="en-font">{{ \Carbon\Carbon::parse($val->postLangsCurrent->txt1)->locale(app()->getLocale())->translatedFormat('Y F d') }}</span>
+                                            <span class="en-font">{{ \Carbon\Carbon::parse(optional($val->postLangsCurrent)->txt1)->locale(app()->getLocale())->translatedFormat('Y F d') }}</span>
                                         </li>
                                     </ul>
                                     <a href="{{route('site.releases.show' , $val->id)}}" class="blog-card-three__btn">
@@ -103,9 +106,9 @@
                                 </div>
                                 <div class="blog-card-three__inner">
                                     <h3 class="blog-card-three__title">
-                                        <a href="{{route('site.releases.show' , $val->id)}}">{{$val->postLangsCurrent->name}}</a>
+                                        <a href="{{route('site.releases.show' , $val->id)}}">{{optional($val->postLangsCurrent)->name}}</a>
                                     </h3>
-                                    <p class="blog-card-three__text">{!! $val->postLangsCurrent->details !!}</p>
+                                    <p class="blog-card-three__text">{!! optional($val->postLangsCurrent)->details !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -116,30 +119,9 @@
             </div>
         </div>
     </section>
-    <section class="mb-60 ">
-        <div class="container">
-            <div class="black-inside-invers aos-init aos-animate" data-aos="fade-up"
-                 data-aos-anchor-placement="top-bottom" data-aos-duration="1300" data-aos-delay="100">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="post-pagination">
-                            <a href="#" class="post-pagination__icon left">
-                                <i class="icon-arrow-left"></i>
-                            </a>
-                            <div class="post-pagination__numbers">
-                                <a href="#" class="post-pagination__btn active">01</a>
-                                <a href="#" class="post-pagination__btn">02</a>
-                                <a href="#" class="post-pagination__btn">03</a>
-                            </div>
-                            <a href="#" class="post-pagination__icon right">
-                                <i class="icon-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
+{{$releases->links()}}
+
 @endsection
 
 

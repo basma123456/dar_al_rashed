@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Site\ModuleService;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class ReleasesController extends Controller
 {
     protected $moduleService;
+    protected $name;
 
     public function __construct(ModuleService $moduleService)
     {
         $this->moduleService = $moduleService;
+        $this->name =   app()->getLocale()  == 'en' ? 'name' : "name_ar";
     }
 
     public function index(Request $request)
@@ -33,7 +36,9 @@ class ReleasesController extends Controller
         }
         #################end search part####################
         $releases = $q->active()->paginate(config('app.pagination_num'))->withQueryString();
-        return view('site/releases/index', compact('releases'));
+        $cats = Category::where('module' , 'releases')->get();
+        $name = $this->name;
+        return view('site/releases/index', compact('releases' , 'cats' , 'name'));
     }
 
 
