@@ -7,7 +7,7 @@ use App\Http\Services\Site\ModuleService;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class EventsController extends Controller
+class ServiceController extends Controller
 {
     protected $moduleService;
 
@@ -18,22 +18,22 @@ class EventsController extends Controller
 
     public function index(Request $request)
     {
-        $q = $this->moduleService->getModuleWithPosts('events')['posts'];
+        $q = $this->moduleService->getModuleWithPosts('services')['posts'];
         $q = $this->moduleService->search($request, $q);
-        $events = $q->active()->paginate(config('app.pagination_num'))->withQueryString();
-        return view('site/events/index', compact('events'));
+        $services = $q->active()->get();
+        return view('site/services/index', compact('services'));
     }
+
 
 
     public function show(Request $request, Post $post)
     {
-        if ($post->active == 'no') {
+        if($post->active == 'no'){
             return redirect()->back();
         }
-        $q = $this->moduleService->getModuleWithPosts('events')['posts'];
-        $events = $q->active()->limit(4)->except($post)->get();
-        return view('site/events/show', compact('post', 'events'));
+        $q = $this->moduleService->getModuleWithPosts('services')['posts'];
+        $services =$q->active()->except($post)->limit(4)->get();
+        return view('site/services/show', compact('post', 'services'));
     }
-
 
 }

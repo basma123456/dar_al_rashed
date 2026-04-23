@@ -25,7 +25,8 @@
     <section class="section-space contact-one contact-one--page">
         <div class="container">
             <div class="black-inside">
-                <form action="" class="form-one">
+                <form action="{{route('site.releases.index')}}" method="get" class="form-one">
+                    @csrf
                     <div class="row justify-content-center align-items-center">
                         <div class="col-xl-3 col-md-6">
                             <div class="projects__info">
@@ -42,9 +43,9 @@
                             <div class="form-one__control ">
                                 <select class="selectpicker" aria-label="" name="category" data-container="body"
                                         data-dropup-auto="false">
-                                    <option selected>أختر التصنيف</option>
+                                    <option value="" selected>أختر التصنيف</option>
                                     @forelse($cats as $item)
-                                    <option value="{{$item->id}}">{{$item->$name}}</option>
+                                    <option value="{{$item->id}}">{{$item->$catName}}</option>
                                         @empty
                                     @endforelse
 {{--                                    <option value="2">اسم التصنيف</option>--}}
@@ -108,7 +109,7 @@
                                     <h3 class="blog-card-three__title">
                                         <a href="{{route('site.releases.show' , $val->id)}}">{{optional($val->postLangsCurrent)->name}}</a>
                                     </h3>
-                                    <p class="blog-card-three__text">{!! optional($val->postLangsCurrent)->details !!}</p>
+                                    <p class="blog-card-three__text">{!! optional($val->postLangsCurrent)->short !!}</p>
                                 </div>
                             </div>
                         </div>

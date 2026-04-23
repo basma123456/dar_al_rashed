@@ -4,6 +4,7 @@ use App\Http\Controllers\Site\EventsController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\NewsController;
 use App\Http\Controllers\Site\ReleasesController;
+use App\Http\Controllers\Site\ServiceController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -35,6 +36,10 @@ Route::group(
     Route::get('/events/{post}', [EventsController::class, 'show'])->name('events.show');
     Route::get('/releases', [ ReleasesController::class, 'index'])->name('releases.index');
     Route::get('/releases/{post}', [ReleasesController::class, 'show'])->name('releases.show');
+    Route::get('/services', [ ServiceController::class, 'index'])->name('services.index');
+    Route::get('/services/{post}', [ServiceController::class, 'show'])->name('services.show');
+
+
 
 
 });

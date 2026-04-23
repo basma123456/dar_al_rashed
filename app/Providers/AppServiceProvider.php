@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\Services\Admin\SettingsSingleton;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
         Paginator::useBootstrap();
+        Model::preventLazyLoading(! app()->isProduction());
 
         $settings = SettingsSingleton::getInstance();
 

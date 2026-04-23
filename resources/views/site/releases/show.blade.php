@@ -1,24 +1,22 @@
 @extends('site.master')
 
 @section('content')
-    <!----page header ------->
     <section class="page-header">
         <div class="page-header__bg"
-             style="background-image: url('{{asset('site/assets/images/backgrounds/news-bread.webp')}}');"></div>
+             style="background-image: url('{{asset('site/assets/images/backgrounds/pub-bread.webp')}}');"></div>
         <div class="container">
             <div class="row">
                 <div class="col-xxl-10 col-xl-9 page-header__col">
                     <div class="page-header__content">
                         <h1 class="page-header__title aos-init" data-aos="fade-left"
-                            data-aos-anchor-placement="top-bottom"
-                            data-aos-duration="1300"> تفاصيل الخبر </h1>
+                            data-aos-anchor-placement="top-bottom" data-aos-duration="1300">{{$post->$name}}</h1>
                         <ul class="rashed-breadcrumb list-unstyled aos-init" data-aos="fade-right"
                             data-aos-anchor-placement="top-bottom" data-aos-duration="1300" data-aos-delay="100">
                             <li>
-                                <a href="index.html" title="">الرئيسيه</a>
+                                <a href="{{url('/')}}" title="">الرئيسيه</a>
                             </li>
                             <li>
-                                <a href="" title="">الأخبار</a>
+                                <a href="{{route('site.releases.index')}}" title="الإصدارات">الإصدارات</a>
                             </li>
                         </ul>
                     </div>
@@ -27,216 +25,276 @@
         </div>
         <div class="page-header__image"></div>
     </section>
-    <!--------end page header ---->
-
-
-    <section class="section-space contact-one contact-one--page">
+    <section class="blog-page blog-page--sidebar section-space">
         <div class="container">
-            <div class="black-inside">
-                <form action="{{route('site.news.index')}}" class="form-one" method="get">
-                    @csrf
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col-xl-3 col-md-6">
-                            <div class="projects__info">
-                                <h2 class="projects__info__title mb-0">بحث متقدم فى الأخبار</h2>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="form-one__control">
-                                <input type="text" name="search" value="{{old('search')}}" placeholder="أسم الخبر">
-                                <i class="fa fa-edit " aria-hidden="true"></i>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="form-one__control ">
-                                <select class="selectpicker" aria-label="" data-container="body" name="date"
-                                        data-dropup-auto="false">
-                                    <option selected>أختر السنه</option>
-                                    <option value="2026">2026</option>
-                                    <option value="2025">2025</option>
-                                    <option value="2024"> 2024</option>
-                                    <option value="2023">2023</option>
-                                    <option value="2022"> 2022</option>
-                                    <option value="2020">2020</option>
-                                </select>
-                                <i class="icon-calendar" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <button class="rashed-btn rashed-btn--white w-100">
-                                <span class="rashed-btn__text w-100">أبحث الأن</span>
-                                <span class="rashed-btn__icon-box">
-                         <span class="rashed-btn__icon">
-                           <i class="icon-search" aria-hidden="true"></i>
-                           <i class="icon-search" aria-hidden="true"></i>
-                         </span>
-                       </span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-    <section class="mb-60">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 ">
-                    <div class="container-date mb-30">
-                        <div class="box-date">
-                            <div
-                                class="inner-div en-font fs-20 fw-bold">{{ (int)date_create( optional($post->postLangsCurrent)->txt1)->format('d') }}</div>
-                            <div
-                                class="inner-div">{{ \Illuminate\Support\Carbon::parse(optional($post->postLangsCurrent)->txt1)->translatedFormat('F') }}</div>
-                        </div>
-                        <div class="text-date">{{optional($post->postLangsCurrent)->name}}</div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12">
-                    {!! optional( $post->postLangsCurrent)->details !!}
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12">
-                    <div class="testimonial-one__single-top">
-                        <div class="img-box">
-                            <div class="inner">
-                                <img src="{{asset($post->image())}}"
-                                     alt="">
-                            </div>
-                            <div class="share-btn">
-                                <div class=" icon" onclick="toggleShare()">
-                                    <i class="fa fa-share"></i>
-                                </div>
-                                <ul class="share-items">
-                                    <li>
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://viralpurplecow.com/blog/what-is-a-purple-cow"
-                                           title="Share on Facebook" target="_blank">
-                                            <i class="fab fa-facebook-f"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://viralpurplecow.com/blog/what-is-a-purple-cow&title=What%20is%20a%20'Purple%20Cow'?"
-                                           title="Share on instagram" target="_blank">
-                                            <i class="fab fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://viralpurplecow.com/blog/what-is-a-purple-cow&title=What%20is%20a%20'Purple%20Cow'?"
-                                           title="Share on X" target="_blank">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
-                                                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                <path
-                                                    d="M17.53 3H21L14.47 10.06L22.24 21H16.47L11.66 14.47L6.24 21H3L10.06 13.47L2 3H7.94L12.47 9.06L17.53 3Z"></path>
-                                            </svg>
+            <div class="row gutter-y-50">
+                <div class="col-lg-8">
+                    <div class="project-details__image-container  row g-0">
 
-                                        </a>
+                        <div class="col-md-4 p-0">
+                            <div class="project-details__info-box" data-aos="fade-up"
+                                 data-aos-anchor-placement="top-bottom" data-aos-duration="1300">
+                                <ul class="project-details__info list-unstyled">
+                                    <li>
+                             <span class="project-details__info__icon">
+                               <i class="fas fa-book"></i>
+                             </span>
+                                        <div class="project-details__info__content">
+                                            <span class="project-details__info__title">أسم الكتاب</span>
+                                            <span class="project-details__info__text">{{$post->$name}}</span>
+                                        </div>
                                     </li>
                                     <li>
-                                        <a href="https://wa.me/?text=https://viralpurplecow.com/blog/what-is-a-purple-cow"
-                                           title="Share on WhatsApp" target="_blank">
-                                            <i class="fab fa-whatsapp"></i>
-                                        </a>
+                             <span class="project-details__info__icon">
+                               <i class="fas fa-feather-alt"></i>
+                             </span>
+                                        <div class="project-details__info__content">
+                                            <span class="project-details__info__title">أسم المؤلف</span>
+                                            <span
+                                                class="project-details__info__text">{{ optional($post->postLangsCurrent)->txt2 }}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                             <span class="project-details__info__icon">
+                               <i class="icon-calendar"></i>
+                             </span>
+                                        <div class="project-details__info__content">
+                                            <span class="project-details__info__title">تاريخ الإصدار </span>
+                                            <span class="project-details__info__text">
+{{--                                 <span class="en-font fw-bold">31</span> يناير <span class="en-font fw-bold">2026</span>--}}
+                                                <span
+                                                    class="en-font fw-bold"> {{ \Carbon\Carbon::parse(optional($post->postLangsCurrent)->txt1)->locale(app()->getLocale())->translatedFormat('Y F d') }} </span>
+                               </span>
+                                        </div>
+                                    </li>
+                                    <li>
+                             <span class="project-details__info__icon">
+                               <i class="icon-folder"></i>
+                             </span>
+                                        <div class="project-details__info__content">
+                                            <span class="project-details__info__title">التصنيف</span>
+                                            <span
+                                                class="project-details__info__text">{{app()->getLocale() == 'ar' ? optional($post->category)->name_ar : optional($post->category)->name}}</span>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <script>
-                    function toggleShare() {
-                        document.querySelector(".share-btn").classList.toggle("open");
-                    }
+                        <div class="col-md-8 p-0">
+                            <div class="project-details__image-container" data-aos="fade-up"
+                                 data-aos-anchor-placement="top-bottom" data-aos-duration="1300">
+                                <img src="{{$post->image()}}" alt="اسم الكتاب">
 
-                    function copyAndRedirect() {
-                        const url = "https://viralpurplecow.com";
-                        navigator.clipboard.writeText(url);
-                        window.open(url, "_blank");
-                    }
-                </script>
-            </div>
-        </div>
-    </section>
-    <section class="finance-growth section-space min-h-350">
-        <div class="finance-growth__bg jarallax" data-jarallax data-speed="0.3s"
-             style="background-image: url('{{asset('site/assets/images/backgrounds/news.jpg')}}');">
-            <div class="finance-growth__bg__shape finance-growth__bg__shape--1" style="
-                background-image: url('{{asset('site/assets/images/shapes/finance-growth-shape-1.png')}}');
-                "></div>
-            <div class="container">
-                <div class="row">
-                    <div class="book-appointment__content mt-60 mb-30">
-                        <div class="sec-title sec-title--center">
-                        <span class="subtitle-two subtitle--double-lines-center aos-init aos-animate" data-aos="fade-up"
-                              data-aos-anchor-placement="top-bottom" data-aos-duration="1500">أحدث</span>
-                            <h2 data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1500"
-                                class="text-white mb-5 aos-init aos-animate"> أخبارنا </h2>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="services-page mt--180 mb-60">
-        <div class="container">
-            <div
-                class="services-page__carousel rashed-owl__carousel rashed-owl__carousel--basic-nav owl-carousel owl-theme"
-                data-owl-options='{
-			"items": 1,
-			"margin": 30,
-			"loop": false,
-			"smartSpeed": 700,
-			"nav": false,
-			"dots": true,
-			"navText": ["<i class=\"icon-arrow-left\"></i>","<i class=\"icon-arrow-right\"></i>"],
-			"autoplay": true,
-			"responsive": {
-				"0": {
-					"items": 1,
-					"nav": true,
-					"dots": false
-				},
-				"768": {
-					"items": 2
-				},
-				"992": {
-					"items": 3
-				}
-			}
-		}'>
 
-                @foreach($releases as $key => $val)
-                    <div class="item" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1300"
-                         data-aos-delay="300">
-                        <div class="blog-card mb-0">
-                            <div class="blog-card__image">
-                                <img src="{{asset($val->up1Image())}}" alt="">
-                                <a href="{{route('site.news.show' , $val->id)}}" class="blog-card__image__link">
-                                    <span class="sr-only"></span>
-                                </a>
-                            </div>
-                            <div class="blog-card__content">
-                                <div class="blog-card__admin">
-                                    <div class="days en-font">{{ (int)date_create(optional( $val->postLangsCurrent)->txt1)->format('d') }}</div>
-                                    <div class="blog-card__admin__info">{{ \Illuminate\Support\Carbon::parse(optional($val->postLangsCurrent)->txt1)->translatedFormat('F') }}</div>
-                                </div>
-                                <h3 class="blog-card__title">
-                                    <a href="{{route('site.news.show' , $val->id)}}"> {{ optional($val->postLangsCurrent)->name}} </a>
-                                </h3>
-                                <a href="{{route('site.news.show' , $val->id)}}" class="rashed-btn rashed-btn--base">
-                                    <span class="rashed-btn__text">أقرأ المزيد</span>
+
+                    <div class="col-md-12">
+                        <div class="project-details__text" data-aos="fade-up" data-aos-anchor-placement="top-bottom"
+                             data-aos-duration="1300">
+                            {!! optional($post->postLangsCurrent)->details !!}
+                        </div>
+                    </div>
+
+
+                    <div class="blog-details__meta aos-init aos-animate" data-aos="fade-up"
+                         data-aos-anchor-placement="top-bottom" data-aos-duration="1300">
+                        <div class="blog-details__tags">
+                            <div class="blog-details__categories__box">
+                                <a href="" title="" class="rashed-btn">
+                                    <span class="rashed-btn__text"> إستعاره الكتاب </span>
                                     <span class="rashed-btn__icon-box">
-                         <span class="rashed-btn__icon">
-                           <i class="icon-arrow-right-up"></i>
-                           <i class="icon-arrow-right-up"></i>
+                           <span class="rashed-btn__icon">
+                             <i class="icon-arrow-right-up" aria-hidden="true"></i>
+                             <i class="icon-arrow-right-up" aria-hidden="true"></i>
+                           </span>
                          </span>
-                       </span>
                                 </a>
                             </div>
-                            <div class="blog-card__border"></div>
                         </div>
-                    </div><!-- /.item -->
-                @endforeach
+                        <div class="blog-details__categories">
+                            <div class="blog-details__categories__box">
+                                <a href="" title="" class="rashed-btn">
+                                    <span class="rashed-btn__text">شراء الكتاب</span>
+                                    <span class="rashed-btn__icon-box">
+                           <span class="rashed-btn__icon">
+                             <i class="icon-arrow-right-up" aria-hidden="true"></i>
+                             <i class="icon-arrow-right-up" aria-hidden="true"></i>
+                           </span>
+                         </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="sidebar">
+                        <aside class="widget-area">
+                            <div class="sidebar__form sidebar__single aos-init aos-animate" data-aos="fade-left"
+                                 data-aos-anchor-placement="top-bottom" data-aos-duration="1300" data-aos-delay="100">
+                                <h3 class="sidebar__categories-title sidebar__title">بحث متقدم </h3>
+                                <div class="contact-one contact-one--page">
+                                    <form action="{{route('site.releases.index')}}" class="form-one">
+                                        <div class="row justify-content-center align-items-center">
+                                            <div class="col-xl-12 col-md-12">
+                                                <div class="form-one__control mb-20">
+                                                    <input type="text" name="search" value="{{request('search')}}"
+                                                           placeholder="أسم الأصدار ">
+                                                    <i class="fa fa-edit " aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-12 col-md-12">
+                                                <div class="form-one__control mb-20">
+                                                    <select class="selectpicker" aria-label="" name="category"
+                                                            data-container="body" data-dropup-auto="false">
+                                                        <option value="" selected>أختر التصنيف</option>
+                                                        @forelse($cats as $item)
+                                                            <option value="{{$item->id}}">{{$item->$catName}}</option>
+                                                        @empty
+                                                        @endforelse
+                                                    </select>
+                                                    <i class="icon-folder" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-md-12">
+                                                <button class="rashed-btn rashed-btn--base w-100">
+                                                    <span class="rashed-btn__text w-100">أبحث الأن</span>
+                                                    <span class="rashed-btn__icon-box">
+                                   <span class="rashed-btn__icon">
+                                     <i class="icon-search" aria-hidden="true"></i>
+                                     <i class="icon-search" aria-hidden="true"></i>
+                                   </span>
+                                 </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="sidebar__categories-wrapper sidebar__single aos-init aos-animate"
+                                 data-aos="fade-left" data-aos-anchor-placement="top-bottom" data-aos-duration="1300"
+                                 data-aos-delay="100">
+                                <h4 class="sidebar__categories-title sidebar__title">التصنيفات</h4>
+                                <ul class="sidebar__categories list-unstyled">
+                                    @forelse($cats as $cat)
+                                        <li>
+                                            <a href="{{route('site.releases.index' ).'?category='.$cat->id}}">
+                             <span class="sidebar__categories__text">
+                               <span class="sidebar__categories__icon">
+                                 <i class="fas fa-long-arrow-alt-right"></i>
+                               </span>{{$cat->$catName}}</span>
+                                                <span class="en-font">({{$cat->posts_count}})</span>
+                                            </a>
+                                        </li>
+                                    @empty
+                                    @endforelse
+                                </ul>
+                            </div>
+                            <div class="sidebar__posts-wrapper sidebar__single aos-init" data-aos="fade-left"
+                                 data-aos-anchor-placement="top-bottom" data-aos-duration="1300" data-aos-delay="100">
+                                <h4 class="sidebar__posts-title sidebar__title">أضيف حديثاً</h4>
+                                <ul class="sidebar__posts list-unstyled">
+                                    @forelse($books as $book)
+                                        <li class="sidebar__posts__item">
+                                            <div class="sidebar__posts__image">
+                                                <img src="{{$book->image()}}" alt="">
+                                            </div>
+                                            <div class="sidebar__posts__content">
+                                                <div class="sidebar__posts__meta">
+                               <span class="sidebar__posts__meta__icon">
+                                 <i class="fas fa-calendar-alt"></i>
+                               </span>
+                                                    <span class="en-font"> {{date_create($book->txt1)->format('d')}} </span>
+                                                    <span class="en-font">  {{date_create($book->txt1)->format('M')}}  </span>
+                                                    <span class="en-font"> {{date_create($book->txt1)->format('Y')}} </span>
+                                                </div>
+                                                <h4 class="sidebar__posts__title">
+                                                    <a href="{{route('site.releases.show' , $book->id)}}">{{$book->$name}}</a>
+                                                </h4>
+                                            </div>
+                                        </li>
+                                    @empty
+                                    @endforelse
+                                    {{--                                    <li class="sidebar__posts__item">--}}
+                                    {{--                                        <div class="sidebar__posts__image">--}}
+                                    {{--                                            <img src="assets/images/hero-slider/hero-slider-1-2.jpg" alt="">--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                        <div class="sidebar__posts__content">--}}
+                                    {{--                                            <div class="sidebar__posts__meta">--}}
+                                    {{--                               <span class="sidebar__posts__meta__icon">--}}
+                                    {{--                                 <i class="fas fa-calendar-alt"></i>--}}
+                                    {{--                               </span>--}}
+                                    {{--                                                <span class="en-font"> 31 </span>--}}
+                                    {{--                                                <span class="en-font"> ديسمبر </span>--}}
+                                    {{--                                                <span class="en-font"> 2026 </span>--}}
+                                    {{--                                            </div>--}}
+                                    {{--                                            <h4 class="sidebar__posts__title">--}}
+                                    {{--                                                <a href="">أسم الكتاب يكتب هنا</a>--}}
+                                    {{--                                            </h4>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </li>--}}
+                                    {{--                                    <li class="sidebar__posts__item">--}}
+                                    {{--                                        <div class="sidebar__posts__image">--}}
+                                    {{--                                            <img src="assets/images/hero-slider/hero-slider-1-2.jpg" alt="">--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                        <div class="sidebar__posts__content">--}}
+                                    {{--                                            <div class="sidebar__posts__meta">--}}
+                                    {{--                               <span class="sidebar__posts__meta__icon">--}}
+                                    {{--                                 <i class="fas fa-calendar-alt"></i>--}}
+                                    {{--                               </span>--}}
+                                    {{--                                                <span class="en-font"> 31 </span>--}}
+                                    {{--                                                <span class="en-font"> ديسمبر </span>--}}
+                                    {{--                                                <span class="en-font"> 2026 </span>--}}
+                                    {{--                                            </div>--}}
+                                    {{--                                            <h4 class="sidebar__posts__title">--}}
+                                    {{--                                                <a href="">أسم الكتاب يكتب هنا</a>--}}
+                                    {{--                                            </h4>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </li>--}}
+                                    {{--                                    <li class="sidebar__posts__item">--}}
+                                    {{--                                        <div class="sidebar__posts__image">--}}
+                                    {{--                                            <img src="assets/images/hero-slider/hero-slider-1-2.jpg" alt="">--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                        <div class="sidebar__posts__content">--}}
+                                    {{--                                            <div class="sidebar__posts__meta">--}}
+                                    {{--                               <span class="sidebar__posts__meta__icon">--}}
+                                    {{--                                 <i class="fas fa-calendar-alt"></i>--}}
+                                    {{--                               </span>--}}
+                                    {{--                                                <span class="en-font"> 31 </span>--}}
+                                    {{--                                                <span class="en-font"> ديسمبر </span>--}}
+                                    {{--                                                <span class="en-font"> 2026 </span>--}}
+                                    {{--                                            </div>--}}
+                                    {{--                                            <h4 class="sidebar__posts__title">--}}
+                                    {{--                                                <a href="">أسم الكتاب يكتب هنا</a>--}}
+                                    {{--                                            </h4>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </li>--}}
+                                    {{--                                    <li class="sidebar__posts__item">--}}
+                                    {{--                                        <div class="sidebar__posts__image">--}}
+                                    {{--                                            <img src="assets/images/hero-slider/hero-slider-1-2.jpg" alt="">--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                        <div class="sidebar__posts__content">--}}
+                                    {{--                                            <div class="sidebar__posts__meta">--}}
+                                    {{--                               <span class="sidebar__posts__meta__icon">--}}
+                                    {{--                                 <i class="fas fa-calendar-alt"></i>--}}
+                                    {{--                               </span>--}}
+                                    {{--                                                <span class="en-font"> 31 </span>--}}
+                                    {{--                                                <span class="en-font"> ديسمبر </span>--}}
+                                    {{--                                                <span class="en-font"> 2026 </span>--}}
+                                    {{--                                            </div>--}}
+                                    {{--                                            <h4 class="sidebar__posts__title">--}}
+                                    {{--                                                <a href="">أسم الكتاب يكتب هنا</a>--}}
+                                    {{--                                            </h4>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </li>--}}
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-
 @endsection

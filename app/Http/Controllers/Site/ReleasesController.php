@@ -12,33 +12,24 @@ class ReleasesController extends Controller
 {
     protected $moduleService;
     protected $name;
+    protected $catName;
 
     public function __construct(ModuleService $moduleService)
     {
         $this->moduleService = $moduleService;
-        $this->name =   app()->getLocale()  == 'en' ? 'name' : "name_ar";
+        $this->name =   app()->getLocale()  == 'en' ? 'name_en' : "name_ar";
+        $this->catName = app()->getLocale()  == 'en' ? 'name' : "name_ar";
     }
 
     public function index(Request $request)
     {
         $q = $this->moduleService->getModuleWithPosts('releases')['posts'];
-        #################search part####################
-        if (!empty($request->search)) {
-            $q->where(function ($query) use ($request) {
-                $query->where('name_ar', 'like', "%" . $request->search . "%")->orWhere('name_en', 'like', '%' . $request->search . "%");
-            });
-        }
-        if (!empty($request->date) && is_numeric($request->date)) {
-            $q->whereHas('postLangs', function ($query) use ($request) {
-                $query->whereDate('txt1', '<=', date_create('12/31/' . $request->date)->format('Y-m-d'))
-                    ->whereDate('txt1', '>=', date_create('1/1/' . $request->date)->format('Y-m-d'));
-            });
-        }
-        #################end search part####################
+        $q = $this->moduleService->search($request, $q , ['category' => $request->category]);
         $releases = $q->active()->paginate(config('app.pagination_num'))->withQueryString();
         $cats = Category::where('module' , 'releases')->get();
         $name = $this->name;
-        return view('site/releases/index', compact('releases' , 'cats' , 'name'));
+        $catName = $this->catName;
+        return view('site/releases/index', compact('releases' , 'cats' , 'name' , 'catName'));
     }
 
 
@@ -49,8 +40,11 @@ class ReleasesController extends Controller
             return redirect()->back();
         }
         $q = $this->moduleService->getModuleWithPosts('releases')['posts'];
-        $releases = $q->active()->limit(4)->except($post)->get();
-        return view('site/releases/show', compact('post', 'releases'));
+        $cats = Category::where('module' , 'releases')->withCount('posts')->get();
+        $name = $this->name;
+        $catName  = $this->catName;
+        $books = $q->active()->limit(4)->except($post)->get();
+        return view('site/releases/show', compact('post' , 'cats' , 'name' , 'catName' , 'books'));
     }
 
 

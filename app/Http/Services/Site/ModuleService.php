@@ -31,13 +31,13 @@ class ModuleService
     }
 
 
-     public function getModuleWithPosts(string $title ): array
+    public function getModuleWithPosts(string $title): array
     {
         $module = $this->findByTitle($title);
 
         $posts = $module->posts()
             ->orderBy('p_order', 'desc')
-            ->where('active' , 'yes' )
+            ->where('active', 'yes')
             ->with('postLangsCurrent');
 
         return [
@@ -139,7 +139,7 @@ class ModuleService
     }
 
 
-    public function searchDateAndTitle($request , $q)
+    public function searchDateAndTitle($request, $q)
     {
         if (!empty($request->search)) {
             $q->where(function ($query) use ($request) {
@@ -152,7 +152,28 @@ class ModuleService
                     ->whereDate('txt1', '>=', date_create('1/1/' . $request->date)->format('Y-m-d'));
             });
         }
+        return $q;
+    }
 
+
+    public function search($request, $q, $names = [])
+    {
+        $this->searchDateAndTitle($request, $q);
+        if (!empty($names)) {
+            foreach ($names as $name => $val) {
+                if ($name !== 'category') {
+                    if (!empty($request->$name)) {
+                        $q->where($name, 'like', "%" . $val . "%");
+                    }
+                } else {
+                    if (!empty($request->$name)) {
+                        $q->whereHas('category', function ($query) use ($val) {
+                            $query->where('cat', $val);
+                        });
+                    }
+                }
+            }
+        }
         return $q;
     }
 }

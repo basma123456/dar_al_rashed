@@ -19,7 +19,7 @@ class NewsController extends Controller
     public function news(Request $request)
     {
         $q = $this->moduleService->getModuleWithPosts('News')['posts'];
-        $q = $this->moduleService->searchDateAndTitle($request, $q);
+        $q = $this->moduleService->search($request, $q);
         $news = $q->active()->paginate(config('app.pagination_num'))->withQueryString();
         return view('site/news/index', compact('news'));
     }
