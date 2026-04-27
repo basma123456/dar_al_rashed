@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Site\ModuleService;
 use App\Models\Post;
+use App\Models\Rate;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -31,9 +32,11 @@ class ServiceController extends Controller
         if($post->active == 'no'){
             return redirect()->back();
         }
+
+        $rate = Rate::where('service_id' , $post->id)->avg('value')??0;
         $q = $this->moduleService->getModuleWithPosts('services')['posts'];
         $services =$q->active()->except($post)->limit(4)->get();
-        return view('site/services/show', compact('post', 'services'));
+        return view('site/services/show', compact('post', 'services' , 'rate'));
     }
 
 }

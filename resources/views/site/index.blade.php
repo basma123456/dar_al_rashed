@@ -1,6 +1,7 @@
 @extends('site.master')
 
 @section('content')
+
     <section class="hero-slider">
         <div
             class="hero-slider__carousel rashed-owl__carousel--with-counter rashed-owl__carousel--basic-nav owl-carousel owl-theme"

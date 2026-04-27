@@ -89,7 +89,7 @@ class PostController extends Controller
     {
         $details = ($postRow->module == 'video' || $postRow->module == 'videos') ? $request->details : $request->details_ar;
         $arrAr = [
-            'posts_lang.name' => $request->parname ?? 0,
+            'posts_lang.name' => $request->parname_rtl ?? 0,
             'posts.name_ar' => $request->parname_rtl ?? 0,
             'lang' => 'ar',
             'posts_lang.details' => $details ?? 0, //videos

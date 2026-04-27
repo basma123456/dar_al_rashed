@@ -43,8 +43,31 @@ class Setting extends Model
         'num_of_raters',
         'map',
         'logo',
+        'dark_logo',
     ];
     public $timestamps = false;
 
 
+    public function logo()
+    {
+        $path = public_path($this->logo);
+        if ($this->logo && file_exists($path)) {
+            return asset($this->logo);
+        } else {
+            return asset("/site/assets/images/logo-light.png");
+        }
+
+    }
+
+
+    public function logoDark()
+    {
+        $path = public_path($this->logo_dark);
+        if ($this->logo_dark && file_exists($path)) {
+            return asset($this->logo_dark);
+        } else {
+            return asset("/site/assets/images/logo-dark.png");
+        }
+
+    }
 }

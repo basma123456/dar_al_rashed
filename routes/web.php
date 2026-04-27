@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\Site\EventsController;
+use App\Http\Controllers\Site\GalleryController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\NewsController;
+use App\Http\Controllers\Site\RateController;
 use App\Http\Controllers\Site\ReleasesController;
 use App\Http\Controllers\Site\ServiceController;
+use App\Http\Controllers\Site\StaticPagesController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -38,6 +41,13 @@ Route::group(
     Route::get('/releases/{post}', [ReleasesController::class, 'show'])->name('releases.show');
     Route::get('/services', [ ServiceController::class, 'index'])->name('services.index');
     Route::get('/services/{post}', [ServiceController::class, 'show'])->name('services.show');
+    Route::get('/gallery', [ GalleryController::class, 'index'])->name('gallery.index');
+    Route::get('/gallery/{post}', [GalleryController::class, 'show'])->name('gallery.show');
+    Route::post('/rate/{service_id}', [ RateController::class, 'storeRate'])->name('store.rate');
+    Route::get('/page/{post_id}/{title}', [StaticPagesController::class, 'show'])->name('pages.show');
+
+
+
 
 
 

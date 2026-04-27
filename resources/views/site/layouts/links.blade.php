@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="{{asset('site/assets/vendors/owl-carousel/css/owl.carousel.min.css')}}" />
     <link rel="stylesheet" href="{{asset('site/assets/vendors/owl-carousel/css/owl.theme.default.min.css')}}" />
     <link rel="stylesheet" href="{{asset('site/assets/css/style-ar.css')}}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
 
