@@ -206,9 +206,9 @@
                                <span class="sidebar__posts__meta__icon">
                                  <i class="fas fa-calendar-alt"></i>
                                </span>
-                                                    <span class="en-font"> {{date_create($book->txt1)->format('d')}} </span>
-                                                    <span class="en-font">  {{date_create($book->txt1)->format('M')}}  </span>
-                                                    <span class="en-font"> {{date_create($book->txt1)->format('Y')}} </span>
+                                                    <span class="en-font"> {{date_create($book->postLangsCurrent->txt1)->format('d')}} </span>
+                                                    <span class="en-font">  {{date_create($book->postLangsCurrent->txt1)->format('M')}} </span>
+                                                    <span class="en-font"> {{date_create($book->postLangsCurrent->txt1)->format('Y')}} </span>
                                                 </div>
                                                 <h4 class="sidebar__posts__title">
                                                     <a href="{{route('site.releases.show' , $book->id)}}">{{$book->$name}}</a>
