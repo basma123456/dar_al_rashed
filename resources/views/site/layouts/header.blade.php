@@ -108,12 +108,14 @@
                                 </a>
 
                                 @if(app()->getLocale() == 'ar')
-                                    <a href="{{ LaravelLocalization::getLocalizedURL('en', null, [], true) }}"   class="lang-icon" target="_self" title="English">
+                                    <a href="{{ LaravelLocalization::getLocalizedURL('en', null, [], true) }}"
+                                       class="lang-icon" target="_self" title="English">
                        <span class="social-links__icon"> EN <span class="sr-only">English</span>
                        </span>
                                     </a>
                                 @else
-                                    <a href="{{ LaravelLocalization::getLocalizedURL('ar', null, [], true) }}"   class="lang-icon" target="_self" title="العربية">
+                                    <a href="{{ LaravelLocalization::getLocalizedURL('ar', null, [], true) }}"
+                                       class="lang-icon" target="_self" title="العربية">
                        <span class="social-links__icon"> AR <span class="sr-only">العربية</span>
                        </span>
                                     </a>
@@ -126,10 +128,15 @@
             </div>
             <div class="main-header__inner">
                 <div class="main-header__logo logo-retina">
+
                     <a href="{{url('/')}}" title="">
-                        <img src="{{asset($settings->logo())}}" class="logo-default" alt=""
-                             width="120"/>
-                        <img src="{{asset($settings->logoDark())}}" class="logo-sticky" alt="" width="80"/>
+                        {{--                        <img src="{{asset($settings->logo())}}" class="logo-default" alt=""--}}
+                        {{--                             width="120"/>--}}
+                        {{--                        <img src="{{asset($settings->logoDark())}}" class="logo-sticky" alt="" width="80"/>--}}
+                        <img src="{{asset('site/assets/images/logo-light.png')}}" class="logo-default" alt=""
+                             width="120">
+                        <img src="{{asset('site/assets/images/logo-dark.png')}}" class="logo-sticky" alt="" width="80">
+
                     </a>
                 </div>
                 <div class="main-header__right">
