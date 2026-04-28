@@ -53,7 +53,7 @@
                             <div>
                                 <h2 class="subtitle-two aos-init aos-animate" data-aos="fade-up"
                                     data-aos-anchor-placement="top-bottom"
-                                    data-aos-duration="1500">{!! $post->postLangsCurrent->short !!}</h2>
+                                    data-aos-duration="1500">{{$post->postLangsCurrent->name}}</h2>
                             </div>
                             <p class="about-one__text" data-aos="fade-up" data-aos-anchor-placement="top-bottom"
                                data-aos-duration="1300">{!! $post->postLangsCurrent->details !!}</p>
@@ -66,7 +66,7 @@
                                  <div>
                                     <h2 class="subtitle-two aos-init aos-animate" data-aos="fade-up"
                                         data-aos-anchor-placement="top-bottom"
-                                        data-aos-duration="1500">{!! $post->postLangsCurrent->short !!}</h2>
+                                        data-aos-duration="1500">{{$post->postLangsCurrent->name}}</h2>
                                 </div>
                              <p class="text-justify" data-aos="fade-up" data-aos-anchor-placement="top-bottom"
                                data-aos-duration="1300">
