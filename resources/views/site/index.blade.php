@@ -18,93 +18,141 @@
         "navText": ["<i class=\"icon-arrow-left\" aria-hidden=\"true\"></i>",
         "<i class=\"icon-arrow-right\" aria-hidden=\"true\"></i>"]}'>
 
-            <div class="hero-slider__item">
-                <div class="hero-slider__bg"
-                     style="background-image: url('{{asset('site/assets/images/backgrounds/hero-slider-bg-1-1.jpg')}}');"></div>
-                <div class="container">
-                    <div class="hero-slider__grid">
-                        <div class="hero-slider__image">
-                            <div class="hero-slider__image__inner">
-                                <div class="hero-slider__image__main">
-                                    <img
-                                        src="{{asset('site/assets/images/hero-slider/hero-slider-1-2.jpg')}}"
-                                        alt=""
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="hero-slider__content">
-                            <div class="hero-slider__tagline">
-                                <img
-                                    src="{{asset('site/assets/images/hero-slider/hero-slider-tagline-1-1.jpg')}}'"
-                                    alt=""
-                                    class="hero-slider__tagline__image"
-                                />
-                                <h6 class="hero-slider__tagline__text">
-                                    مسرحيه شعائر الإبادة
-                                </h6>
-                            </div>
-                            <h2 class="hero-slider__title">
-                                النص الفائز بالمركز الأول في جائزة الشيخ راشد بن
-                                حمد الشرقي 2020
-                            </h2>
-                            <div class="hero-slider__description">
-                                <p class="hero-slider__text">
-                                    شعائر الإباده رحلة مسرحيه بين تناقضات الحرب
-                                    والحياه تكشف صراع الأمل واليأس والخوف والأمان .
-                                    عمل إنسانى ينقل أنين المدنيين وأحلامهم ويعرى
-                                    أسرار معناهم فى أزمنة الحروب ...
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <img
-                    src="{{asset('site/assets/images/shapes/hero-slider-shape-1-1.png')}}"
-                    alt="shape"
-                    class="hero-slider__shape-1"
-                />
-                <div class="hero-slider__shape-2"></div>
-            </div>
 
-            <div class="hero-slider__item">
-                <div
-                    class="hero-slider__bg"
-                    style="
-                        background-image: url('{{asset('site/assets/images/backgrounds/hero-slider-bg-1-1.jpg')}}');
-                        "
-                ></div>
-                <div class="container">
-                    <div class="hero-slider__grid">
-                        <div class="hero-slider__image">
-                            <div class="hero-slider__image__inner">
-                                <div class="hero-slider__image__main">
-                                    <img src="{{asset('site/assets/images/hero-slider/hero-slider-1-1.jpg')}}" alt=""/>
+            @foreach($data['sliders'] as $slider)
+                <div class="hero-slider__item">
+                    <div class="hero-slider__bg"
+                         style="background-image: url('{{asset('site/assets/images/backgrounds/hero-slider-bg-1-1.jpg')}}');"></div>
+                    <div class="container">
+                        <div class="hero-slider__grid">
+                            <div class="hero-slider__image">
+                                <div class="hero-slider__image__inner">
+                                    <div class="hero-slider__image__main">
+                                        <img
+                                            src="{{asset($slider->image())}}"
+                                            alt=""
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hero-slider__content">
+                                <div class="hero-slider__tagline">
+                                    <img
+                                        src="{{asset('site/assets/images/hero-slider/hero-slider-tagline-1-1.jpg')}}'"
+                                        alt=""
+                                        class="hero-slider__tagline__image"
+                                    />
+                                    <h6 class="hero-slider__tagline__text">
+                                       {{$slider->postLangsCurrent->name}}
+                                    </h6>
+                                </div>
+                                <h2 class="hero-slider__title">
+                                  {{$slider->postLangsCurrent->txt1}}
+                                </h2>
+                                <div class="hero-slider__description">
+                                    <p class="hero-slider__text">
+                                        {!! render_html($slider->postLangsCurrent->details) !!}
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="hero-slider__content">
-                            <div class="hero-slider__tagline">
-                                <img src="{{asset('site/assets/images/hero-slider/hero-slider-tagline-1-2.jpg')}}"
-                                     alt="" class="hero-slider__tagline__image"/>
-                                <h6 class="hero-slider__tagline__text"> رواية الملف الأصفر </h6>
-                            </div>
-                            <h2 class="hero-slider__title"> الرواية الفائزة بالمركز الثاني للكبار بجائزة الشيخ راشد بن
-                                حمد الشرقي للإبداع </h2>
-                            <div class="hero-slider__description">
-                                <p class="hero-slider__text"> ظهورك المفاجئ بعثر هدوئي وأعاد ألم الماضي ارتسم الغضب في
-                                    عيوني كاللهب الأحمر وملامحي فضحت صدمتي رغم صمتي .... </p>
-                            </div>
-                        </div>
                     </div>
+                    <img
+                        src="{{asset('site/assets/images/shapes/hero-slider-shape-1-1.png')}}"
+                        alt="shape"
+                        class="hero-slider__shape-1"
+                    />
+                    <div class="hero-slider__shape-2"></div>
                 </div>
-                <img
-                    src="{{asset('site/assets/images/shapes/hero-slider-shape-1-1.png')}}"
-                    alt="shape"
-                    class="hero-slider__shape-1"
-                />
-                <div class="hero-slider__shape-2"></div>
-            </div>
+            @endforeach
+
+            {{--            <div class="hero-slider__item">--}}
+            {{--                <div class="hero-slider__bg"--}}
+            {{--                     style="background-image: url('{{asset('site/assets/images/backgrounds/hero-slider-bg-1-1.jpg')}}');"></div>--}}
+            {{--                <div class="container">--}}
+            {{--                    <div class="hero-slider__grid">--}}
+            {{--                        <div class="hero-slider__image">--}}
+            {{--                            <div class="hero-slider__image__inner">--}}
+            {{--                                <div class="hero-slider__image__main">--}}
+            {{--                                    <img--}}
+            {{--                                        src="{{asset('site/assets/images/hero-slider/hero-slider-1-2.jpg')}}"--}}
+            {{--                                        alt=""--}}
+            {{--                                    />--}}
+            {{--                                </div>--}}
+            {{--                            </div>--}}
+            {{--                        </div>--}}
+            {{--                        <div class="hero-slider__content">--}}
+            {{--                            <div class="hero-slider__tagline">--}}
+            {{--                                <img--}}
+            {{--                                    src="{{asset('site/assets/images/hero-slider/hero-slider-tagline-1-1.jpg')}}'"--}}
+            {{--                                    alt=""--}}
+            {{--                                    class="hero-slider__tagline__image"--}}
+            {{--                                />--}}
+            {{--                                <h6 class="hero-slider__tagline__text">--}}
+            {{--                                    مسرحيه شعائر الإبادة--}}
+            {{--                                </h6>--}}
+            {{--                            </div>--}}
+            {{--                            <h2 class="hero-slider__title">--}}
+            {{--                                النص الفائز بالمركز الأول في جائزة الشيخ راشد بن--}}
+            {{--                                حمد الشرقي 2020--}}
+            {{--                            </h2>--}}
+            {{--                            <div class="hero-slider__description">--}}
+            {{--                                <p class="hero-slider__text">--}}
+            {{--                                    شعائر الإباده رحلة مسرحيه بين تناقضات الحرب--}}
+            {{--                                    والحياه تكشف صراع الأمل واليأس والخوف والأمان .--}}
+            {{--                                    عمل إنسانى ينقل أنين المدنيين وأحلامهم ويعرى--}}
+            {{--                                    أسرار معناهم فى أزمنة الحروب ...--}}
+            {{--                                </p>--}}
+            {{--                            </div>--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--                <img--}}
+            {{--                    src="{{asset('site/assets/images/shapes/hero-slider-shape-1-1.png')}}"--}}
+            {{--                    alt="shape"--}}
+            {{--                    class="hero-slider__shape-1"--}}
+            {{--                />--}}
+            {{--                <div class="hero-slider__shape-2"></div>--}}
+            {{--            </div>--}}
+
+            {{--            <div class="hero-slider__item">--}}
+            {{--                <div--}}
+            {{--                    class="hero-slider__bg"--}}
+            {{--                    style="--}}
+            {{--                        background-image: url('{{asset('site/assets/images/backgrounds/hero-slider-bg-1-1.jpg')}}');--}}
+            {{--                        "--}}
+            {{--                ></div>--}}
+            {{--                <div class="container">--}}
+            {{--                    <div class="hero-slider__grid">--}}
+            {{--                        <div class="hero-slider__image">--}}
+            {{--                            <div class="hero-slider__image__inner">--}}
+            {{--                                <div class="hero-slider__image__main">--}}
+            {{--                                    <img src="{{asset('site/assets/images/hero-slider/hero-slider-1-1.jpg')}}" alt=""/>--}}
+            {{--                                </div>--}}
+            {{--                            </div>--}}
+            {{--                        </div>--}}
+            {{--                        <div class="hero-slider__content">--}}
+            {{--                            <div class="hero-slider__tagline">--}}
+            {{--                                <img src="{{asset('site/assets/images/hero-slider/hero-slider-tagline-1-2.jpg')}}"--}}
+            {{--                                     alt="" class="hero-slider__tagline__image"/>--}}
+            {{--                                <h6 class="hero-slider__tagline__text"> رواية الملف الأصفر </h6>--}}
+            {{--                            </div>--}}
+            {{--                            <h2 class="hero-slider__title"> الرواية الفائزة بالمركز الثاني للكبار بجائزة الشيخ راشد بن--}}
+            {{--                                حمد الشرقي للإبداع </h2>--}}
+            {{--                            <div class="hero-slider__description">--}}
+            {{--                                <p class="hero-slider__text"> ظهورك المفاجئ بعثر هدوئي وأعاد ألم الماضي ارتسم الغضب في--}}
+            {{--                                    عيوني كاللهب الأحمر وملامحي فضحت صدمتي رغم صمتي .... </p>--}}
+            {{--                            </div>--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--                <img--}}
+            {{--                    src="{{asset('site/assets/images/shapes/hero-slider-shape-1-1.png')}}"--}}
+            {{--                    alt="shape"--}}
+            {{--                    class="hero-slider__shape-1"--}}
+            {{--                />--}}
+            {{--                <div class="hero-slider__shape-2"></div>--}}
+            {{--            </div>--}}
         </div>
     </section>
 

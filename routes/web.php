@@ -28,7 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth', 'verified'],
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
         'as' => "site.",
     ], function () { //...
 

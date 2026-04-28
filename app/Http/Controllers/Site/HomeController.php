@@ -12,7 +12,8 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        return view('site/index');
+        $data['sliders'] = Post::with('postLangsCurrent')->where('module' , 'Album')->get();
+        return view('site/index' , compact('data'));
     }
 
 }
