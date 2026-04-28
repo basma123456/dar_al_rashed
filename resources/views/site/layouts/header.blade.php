@@ -195,7 +195,7 @@
                             </li>
 
                             <li>
-                                <a href="{{asset('site//contact')}}" title="اتصل بنا">اتصل بنا</a>
+                                <a href="{{asset('site/contact')}}" title="اتصل بنا">اتصل بنا</a>
                             </li>
                         </ul>
                     </nav>

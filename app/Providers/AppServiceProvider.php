@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Laravel\Fortify\Fortify;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
         $settings = SettingsSingleton::getInstance();
 
         View::share('settings', $settings->getSetting());
+
+
     }
 
     /**

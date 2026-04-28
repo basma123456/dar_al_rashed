@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Site\ContactUsController;
 use App\Http\Controllers\Site\EventsController;
 use App\Http\Controllers\Site\GalleryController;
 use App\Http\Controllers\Site\HomeController;
@@ -45,6 +46,7 @@ Route::group(
     Route::get('/gallery/{post}', [GalleryController::class, 'show'])->name('gallery.show');
     Route::post('/rate/{service_id}', [ RateController::class, 'storeRate'])->name('store.rate');
     Route::get('/page/{post_id}/{title}', [StaticPagesController::class, 'show'])->name('pages.show');
+    Route::get('/contact-us' , [ContactUsController::class , 'show'])->name('contact_us.show');
 
 
 

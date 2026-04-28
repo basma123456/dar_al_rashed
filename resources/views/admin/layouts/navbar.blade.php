@@ -58,10 +58,11 @@
 
                         </a>
 
-                        <a href="#" class="dropdown-item active fw-semibold text-danger">
+                        <form action="{{route('logout')}}" method="post" class="dropdown-item active fw-semibold text-danger">
+                            @csrf
                             <i class="ri-logout-box-line me-1 fs-6 align-middle"></i>
-                            <span class="align-middle fs-6">@lang('admin.log_out')</span>
-                        </a>
+                            <button type="submit" class="align-middle fs-6">@lang('admin.log_out')</button>
+                        </form>
                     </div>
                 </div>
             </div>
